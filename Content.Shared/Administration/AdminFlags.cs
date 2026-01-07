@@ -1,4 +1,4 @@
-﻿namespace Content.Shared.Administration
+namespace Content.Shared.Administration
 {
     /// <summary>
     ///     Permissions that admins can have.
@@ -128,5 +128,14 @@
         ///     Dangerous host permissions like scsi.
         /// </summary>
         Host = 1u << 31,
+
+        //Metro14-start
+
+        /// <summary>  
+        ///     Возможность выдавать/удалять подписку игрокам.
+        /// </summary>  
+        Sponsor = 1 << 22,
+
+        //Metro14-end
     }
 }
