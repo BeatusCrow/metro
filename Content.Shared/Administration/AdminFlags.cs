@@ -124,11 +124,6 @@ namespace Content.Shared.Administration
         /// </summary>
         NameColor = 1 << 21,
 
-        /// <summary>
-        ///     Dangerous host permissions like scsi.
-        /// </summary>
-        Host = 1u << 31,
-
         //Metro14-start
 
         /// <summary>  
@@ -137,5 +132,10 @@ namespace Content.Shared.Administration
         Sponsor = 1 << 22,
 
         //Metro14-end
+
+        /// <summary>
+        ///     Dangerous host permissions like scsi.
+        /// </summary>
+        Host = 1u << 31,
     }
 }

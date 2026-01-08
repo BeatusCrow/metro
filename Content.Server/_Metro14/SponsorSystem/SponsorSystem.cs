@@ -1,10 +1,11 @@
+using System.Linq;
 using Content.Server.Administration;
+using Content.Server.Administration.Managers;
+using Content.Server.Database;
 using Content.Shared.Administration;
 using Robust.Server.Player;
 using Robust.Shared.Console;
-using Content.Server.Database;
 using Robust.Shared.Network;
-using System.Linq;
 
 namespace Content.Server._Metro14.SponsorSystem;
 
@@ -16,8 +17,9 @@ public sealed class SponsorSystemAddCommand : LocalizedCommands
 {
     [Dependency] private readonly IServerDbManager _dbManager = default!;
     [Dependency] private readonly IPlayerManager _playerManager = default!;
+    [Dependency] private readonly IAdminManager _adminManager = default!;
 
-    public override string Command => "sposorsystem_add";
+    public override string Command => "sponsorsystem_add";
     public override string Description => Loc.GetString("cmd-sponsorsystem-add-desc");
     public override string Help => Loc.GetString("cmd-sponsorsystem-add-help");
 
@@ -72,12 +74,15 @@ public sealed class SponsorSystemAddCommand : LocalizedCommands
             var player = shell.Player;
             if (player == null)
             {
-                shell.WriteError("Команда может быть выполнена только игроком");
+                shell.WriteError("A command can only be executed by a player.");
                 return;
             }
 
-            var sessionKey = player.UserId;
-            shell.WriteLine($"Ваш сикей: {sessionKey}");
+            if (!_adminManager.HasAdminFlag(player, AdminFlags.Host))
+            {
+                shell.WriteError("Only the host can issue this subscription.");
+                return;
+            }
         }
 
         if (args.Length == 3 && int.TryParse(args[2], out var days))
@@ -93,7 +98,10 @@ public sealed class SponsorSystemAddCommand : LocalizedCommands
                 expiryDate
             );
 
-            shell.WriteLine(Loc.GetString("cmd-sponsorsystem-add-successfully", ("playerId", playerId), ("tier", tier)));
+            if (shell.Player != null)
+                shell.WriteLine(Loc.GetString("cmd-sponsorsystem-add-successfully", ("playerId", shell.Player), ("tier", tier)));
+            else
+                shell.WriteLine(Loc.GetString("cmd-sponsorsystem-add-successfully", ("playerId", playerId), ("tier", tier)));
         }
         catch (Exception ex)
         {
@@ -132,8 +140,9 @@ public sealed class SponsorSystemRemoveCommand : LocalizedCommands
 {
     [Dependency] private readonly IServerDbManager _dbManager = default!;
     [Dependency] private readonly IPlayerManager _playerManager = default!;
+    [Dependency] private readonly IPlayerLocator _playerLocator = default!;
 
-    public override string Command => "sposorsystem_remove";
+    public override string Command => "sponsorsystem_remove";
     public override string Description => Loc.GetString("cmd-sponsorsystem-remove-desc");
     public override string Help => Loc.GetString("cmd-sponsorsystem-remove-help");
 
@@ -146,11 +155,30 @@ public sealed class SponsorSystemRemoveCommand : LocalizedCommands
             return;
         }
 
-        var userId = new NetUserId(Guid.Parse(args[0]));
+        NetUserId userId;
+
+        if (Guid.TryParse(args[0], out var guid))
+        {
+            userId = new NetUserId(guid);
+        }
+        else
+        {
+            var playerData = await _playerLocator.LookupIdByNameOrIdAsync(args[0]);
+            if (playerData == null)
+            {
+                shell.WriteError(Loc.GetString("shell-target-player-does-not-exist"));
+                return;
+            }
+            userId = playerData.UserId;
+        }
+
         try
         {
+            var playerData = await _playerLocator.LookupIdAsync(new NetUserId(userId));
+            var playerName = playerData?.Username ?? userId.ToString();
+
             await _dbManager.RemoveSponsorAsync(userId);
-            shell.WriteLine(Loc.GetString("cmd-sponsorsystem-remove-successfully", ("userId", userId)));
+            shell.WriteLine(Loc.GetString("cmd-sponsorsystem-remove-successfully", ("userId", playerName)));
         }
         catch (Exception ex)
         {
@@ -179,8 +207,9 @@ public sealed class SponsorSystemCheckCommand : LocalizedCommands
 {
     [Dependency] private readonly IServerDbManager _dbManager = default!;
     [Dependency] private readonly IPlayerManager _playerManager = default!;
+    [Dependency] private readonly IPlayerLocator _playerLocator = default!;
 
-    public override string Command => "sposorsystem_check";
+    public override string Command => "sponsorsystem_check";
     public override string Description => Loc.GetString("cmd-sponsorsystem-check-desc");
     public override string Help => Loc.GetString("cmd-sponsorsystem-check-help");
 
@@ -192,7 +221,23 @@ public sealed class SponsorSystemCheckCommand : LocalizedCommands
             return;
         }
 
-        var userId = new NetUserId(Guid.Parse(args[0]));
+        NetUserId userId;
+
+        if (Guid.TryParse(args[0], out var guid))
+        {
+            userId = new NetUserId(guid);
+        }
+        else
+        {
+            var playerData = await _playerLocator.LookupIdByNameOrIdAsync(args[0]);
+            if (playerData == null)
+            {
+                shell.WriteError(Loc.GetString("shell-target-player-does-not-exist"));
+                return;
+            }
+            userId = playerData.UserId;
+        }
+
         var isSponsor = await _dbManager.IsSponsorAsync(userId);
         var info = await _dbManager.GetSponsorInfoAsync(userId);
 
@@ -200,7 +245,7 @@ public sealed class SponsorSystemCheckCommand : LocalizedCommands
         if (info != null)
         {
             var expiry = info.ExpiryDate?.ToString("yyyy-MM-dd") ?? "Permanent";
-            shell.WriteLine(Loc.GetString("cmd-sponsorsystem-check-successfully", ("tier", info.Tier), ("expiryDat", expiry), ("isActive", info.IsActive)));
+            shell.WriteLine(Loc.GetString("cmd-sponsorsystem-check-successfully", ("tier", info.Tier), ("expiryDate", expiry), ("isActive", info.IsActive)));
         }
         else
         {
@@ -229,8 +274,9 @@ public sealed class SponsorSystemListCommand : LocalizedCommands
 {
     [Dependency] private readonly IServerDbManager _dbManager = default!;
     [Dependency] private readonly IPlayerManager _playerManager = default!;
+    [Dependency] private readonly IPlayerLocator _playerLocator = default!;
 
-    public override string Command => "sposorsystem_list";
+    public override string Command => "sponsorsystem_list";
     public override string Description => Loc.GetString("cmd-sponsorsystem-list-desc");
     public override string Help => Loc.GetString("cmd-sponsorsystem-list-help");
 
@@ -259,7 +305,10 @@ public sealed class SponsorSystemListCommand : LocalizedCommands
                 var status = sponsor.IsActive ? "Active" : "Inactive";
                 var expiry = sponsor.ExpiryDate?.ToString("yyyy-MM-dd") ?? "Permanent";
 
-                shell.WriteLine(Loc.GetString("cmd-sponsorsystem-list-sponsor-information", ("userId", sponsor.UserId), ("tier", sponsor.Tier), ("active", status), ("expiry", expiry)));
+                var playerData = await _playerLocator.LookupIdAsync(new NetUserId(sponsor.UserId));
+                var playerName = playerData?.Username ?? sponsor.UserId.ToString();
+
+                shell.WriteLine(Loc.GetString("cmd-sponsorsystem-list-sponsor-information", ("userId", playerName), ("tier", sponsor.Tier), ("active", status), ("expiry", expiry)));
             }
         }
         catch (Exception ex)
