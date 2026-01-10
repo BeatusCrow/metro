@@ -63,13 +63,13 @@
 - type: entity
   parent: BaseAction
   id: ActionChangeGhostSkin
-  name: Смена скина
-  description: Переключитесь на другой скин.
+  name: Changing the skin
+  description: Switch to a different skin. If you have such an opportunity :)
   components:
   - type: Action
     useDelay: 2
     itemIconStyle: BigAction
-    icon: _Metro14/Interface/Actions/NightVisionDevice/PNV-ON.png
+    icon: _Metro14/Mobs/Ghosts/ghost.rsi/ghost1.png
     checkCanInteract: false
   - type: InstantAction
     event: !type:TryChangeGhostSkinActionEvent

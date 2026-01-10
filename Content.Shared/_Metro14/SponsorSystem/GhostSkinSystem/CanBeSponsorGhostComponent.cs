@@ -1,8 +1,8 @@
-using Robust.Shared.GameObjects;
-using Robust.Shared.Serialization;
 using System.Collections.Generic;
 using Content.Shared.Actions;
+using Robust.Shared.GameObjects;
 using Robust.Shared.Prototypes;
+using Robust.Shared.Serialization;
 
 namespace Content.Server._Metro14.SponsorSystem.GhostSkinSystem;
 
@@ -12,13 +12,11 @@ public sealed partial class CanBeSponsorGhostComponent : Component
     /// <summary>
     /// Состояние спрайта по умолчанию для не-спонсоров  
     /// </summary>
-    [DataField]
     public string DefaultState = "ghost";
 
     /// <summary>
     /// Маппинг уровней спонсора на состояния спрайта  
     /// </summary>
-    [DataField]
     public Dictionary<string, string> SponsorStates = new()
     {
         { "soldier", "ghost_camo" },
@@ -30,10 +28,10 @@ public sealed partial class CanBeSponsorGhostComponent : Component
     };
 
     /// <summary>
-    /// Уровней спонсора.
+    /// Список уровней спонсора.
     /// Самый последниий - самый высокий.
+    /// Данное решение необходимо для возможности обладателю, например, подписки полковника менять свой скин на солдата/лейтенанта/полковника.
     /// </summary>
-    [DataField]
     public List<string> SponsorsRankStates = new List<string>() {
         "ghost",
         "ghost_camo",
@@ -44,16 +42,19 @@ public sealed partial class CanBeSponsorGhostComponent : Component
         "uncloak",
     };
 
-    [DataField]
+    /// <summary>
+    /// Это поле необходимо для переключения скинов. В нем хранятся все доступные игроку скины.
+    /// </summary>
     public List<string> AvailableStates = new List<string>();
 
-    [DataField]
+    /// <summary>
+    /// Индекс текущего включенного скина.
+    /// </summary>
     public int CurrentIndex = 0;
 
     /// <summary>
     /// Сущность, хранящая действие смены скина наблюдателя.
     /// </summary>
-    [DataField]
     public EntityUid? TryChangeGhostSkinActionEntity;
 
     /// <summary>
