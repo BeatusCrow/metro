@@ -2,14 +2,14 @@
   parent: SmokeGrenade
   id: ChlorineBalloonStalker
   name: баллон с хлором
-  description: Запрещённое химическое оружие после 29 апреля 1997 года, но в ЧЗО нашли в лабораториях баллоны с хлором. Игнорируя запрет, используют в масштабных боях, довольно сильное и опасное оружие, которое может распространиться на большую область. В таком случае лучше запастись кислородным баллоном с противогазом.
+  description: Запрещённое химическое оружие после 29 апреля 1997 года. Невероятно опасное оружие способное истребить население целой станции. Необходимо использовать противогаз и баллон. Использование данного оружия,равносильно объявлению войны всем жителям метро.
   suffix: Stalker, Events
   components:
   - type: Sprite
     sprite: _Metro14/Objects/Weapons/Grenade/Chlorgrenade
   - type: SmokeOnTrigger
     duration: 90
-    spreadAmount: 8000
+    spreadAmount: 2500
     solution:
       reagents:
       - ReagentId: ChlorineStalker
@@ -48,7 +48,7 @@
         damage:
           types:
             Poison: 
-              3
+              2
     Narcotic:
       effects:
       - !type:PopupMessage

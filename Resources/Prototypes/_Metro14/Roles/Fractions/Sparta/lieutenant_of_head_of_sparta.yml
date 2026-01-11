@@ -4,6 +4,7 @@
   description: Вы заменяете лидера спарты. Храните клятву,защищайте метро
   playTimeTracker: M14LieutenantOfHeadOfSparta
   startingGear: M14LieutenantOfHeadOfSpartaGear
+  supervisors: job-supervisors-podpolkovnik
   icon: "JobIconSparta"
   canBeAntag: true
   accessGroups:

@@ -4,6 +4,7 @@
   description: Вы обязаны следить за всем что идет через границу станции 
   playTimeTracker: M14TradeAgentHansa
   startingGear: M14TradeAgentHansaGear
+  supervisors: job-supervisors-torg
   icon: "JobIconHansa"
   canBeAntag: true
   access:

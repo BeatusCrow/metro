@@ -1,0 +1,10 @@
+job-supervisors-ganza = Вы подчиняетесь Начальнику станции,торговому агенту.
+job-supervisors-torg = Вы подчиняетесь Начальнику станции
+job-supervisors-tech = Вы подчиняетесь Начальнику станции
+job-supervisors-vdnh = Вы подчиняетесь Начальнику станции
+job-supervisors-sparta = Вы подчиняетесь Полковнику,Подполковнику
+job-supervisors-podpolkovnik = Вы подчиняетесь Полковнику
+job-supervisors-gydra = Вы подчиняетесь Фюреру,председателю гидры
+job-supervisors-predsedatel = Вы подчиняетесь Фюреру
+job-supervisors-redline = Вы подчиняетесь Генсеку,Политруку
+job-supervisors-politruk = Вы подчиняетесь Генсеку 

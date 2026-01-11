@@ -5,6 +5,7 @@
   playTimeTracker: M14MinisterHydra
   startingGear: M14MinisterHydraGear
   icon: "JobIconHydra"
+  supervisors: job-supervisors-predsedatel
   canBeAntag: true
   accessGroups:
     - M14Hydra

@@ -4,6 +4,7 @@
   description: Защищайте ваших любимых техников от всяких напастей. Может быть они поделятся с вами их разработками.
   playTimeTracker: M14SecurityTech
   startingGear: M14SecurityTechGear
+  supervisors: job-supervisors-tech
   icon: "JobIconTech"
   canBeAntag: true
   access:

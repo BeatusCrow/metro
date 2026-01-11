@@ -5,6 +5,7 @@
   playTimeTracker: M14SoldierSparta
   startingGear: M14SoldierSpartaGear
   icon: "JobIconSparta"
+  supervisors: job-supervisors-sparta
   canBeAntag: true
   access:
     - M14Sparta

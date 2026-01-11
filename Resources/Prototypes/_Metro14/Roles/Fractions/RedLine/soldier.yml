@@ -4,6 +4,7 @@
   description: Вы обязаны подчиняться генсеку и политруку и нести идеологию коммунизма.
   playTimeTracker: M14SoldierRedLine
   startingGear: M14SoldierRedLineGear
+  supervisors: job-supervisors-redline
   icon: "JobIconRedline"
   canBeAntag: true
   access:

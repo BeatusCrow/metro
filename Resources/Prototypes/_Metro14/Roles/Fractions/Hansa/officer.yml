@@ -4,6 +4,7 @@
   description: Вы обязаны следить за всеми,кто идет через границу станции 
   playTimeTracker: M14OfficerHansa
   startingGear: M14OfficerHansaGear
+  supervisors: job-supervisors-ganza
   icon: "JobIconHansa"
   canBeAntag: true
   access:

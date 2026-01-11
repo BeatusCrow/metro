@@ -4,6 +4,7 @@
   description: Вы медик спарты. Помогайте своим товарищам и окружающим.
   playTimeTracker: M14MedicSparta
   startingGear: M14MedicSpartaGear
+  supervisors: job-supervisors-sparta
   icon: "JobIconSparta"
   canBeAntag: true
   access:
