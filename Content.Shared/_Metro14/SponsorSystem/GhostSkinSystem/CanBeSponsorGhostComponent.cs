@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using Content.Shared.Actions;
 using Robust.Shared.Prototypes;
 
-namespace Content.Server._Metro14.SponsorSystem.GhostSkinSystem;
+namespace Content.Shared._Metro14.SponsorSystem.GhostSkinSystem;
 
 [RegisterComponent]
 public sealed partial class CanBeSponsorGhostComponent : Component
@@ -18,34 +18,18 @@ public sealed partial class CanBeSponsorGhostComponent : Component
     /// <summary>
     /// Маппинг уровней спонсора на состояния спрайта  
     /// </summary>
-    [DataField]
-    public Dictionary<string, string> SponsorStates = new()
+    public Dictionary<string, List<string>> SponsorStates = new()
     {
-        { "soldier", "ghost_camo" },
-        { "lieutenant", "ghost_fire" },
-        { "colonel", "ghost_blazeit" },
-        { "beatus_individual_tier", "ghostburger" },
-        { "ramzesina_individual_tier", "god" },
-        { "kompotik_individual_tier", "uncloak" }
+        ["ghost"] = new() { "ghost" },
+        ["soldier"] = new() { "ghost", "ghost_camo" },
+        ["lieutenant"] = new() { "ghost", "ghost_camo", "ghost_fire" },
+        ["colonel"] = new() { "ghost", "ghost_camo", "ghost_fire", "ghost_blazeit" },
+        ["beatus_individual_tier"] = new() { "ghost", "ghost_camo", "ghost_fire", "ghost_blazeit", "ghostburger" },
+        ["ramzesina_individual_tier"] = new() { "ghost", "ghost_camo", "ghost_fire", "ghost_blazeit", "god" },
+        ["kompotik_individual_tier"] = new() { "ghost", "ghost_camo", "ghost_fire", "ghost_blazeit", "uncloak" }
     };
 
-    /// <summary>
-    /// Уровней спонсора.
-    /// Самый последниий - самый высокий.
-    /// </summary>
-    [DataField]
-    public List<string> SponsorsRankStates = new List<string>() {
-        "ghost",
-        "ghost_camo",
-        "ghost_fire",
-        "ghost_blazeit",
-        "ghostburger",
-        "god",
-        "uncloak",
-    };
-
-    [DataField]
-    public List<string> AvailableStates = new List<string>();
+    public List<string> PossibleSkins = new List<string>();
 
     [DataField]
     public int CurrentIndex = 0;

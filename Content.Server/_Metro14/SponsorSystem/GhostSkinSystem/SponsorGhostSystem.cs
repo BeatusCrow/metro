@@ -1,14 +1,16 @@
+using System.Linq;
 using Content.Server.Database;
+using Content.Shared._Metro14.SponsorSystem.GhostSkinSystem;
+using Content.Shared.Actions;
+using Content.Shared.Actions.Components;
 using Content.Shared.Ghost;
-using Robust.Shared.Player;
 using Content.Shared.Mind;
 using Content.Shared.Mind.Components;
 using Robust.Server.GameObjects;
 using Robust.Shared.Asynchronous;
 using Robust.Shared.GameObjects;
+using Robust.Shared.Player;
 using Robust.Shared.Prototypes;
-using Content.Server._Metro14.SponsorSystem.GhostSkinSystem;
-using Content.Shared.Actions;
 
 namespace Content.Server._Metro14.SponsorSystem.GhostSkinSystem;
 
@@ -26,11 +28,25 @@ public sealed class SponsorGhostSystem : EntitySystem
         SubscribeLocalEvent<CanBeSponsorGhostComponent, TryChangeGhostSkinActionEvent>(OnTryChangeGhostSkinActionPressed);
     }
 
-    private void OnComponentInit(EntityUid uid, CanBeSponsorGhostComponent component, ComponentInit args)
+    /// <summary>
+    /// Базовый метод обработки события инициализации компонента CanBeSponsorGhostComponent.
+    /// </summary>
+    private async void OnComponentInit(EntityUid uid, CanBeSponsorGhostComponent component, ComponentInit args)
     {
-        TrySetAction(uid, component.TryChangeGhostSkinAction, ref component.TryChangeGhostSkinActionEntity);
+        //TrySetAction(uid, component.TryChangeGhostSkinAction, ref component.TryChangeGhostSkinActionEntity);
     }
 
+    /// <summary>
+    /// Базовый метод обработки события удаления компонента CanBeSponsorGhostComponent.
+    /// </summary>
+    private void OnComponentRemove(EntityUid uid, CanBeSponsorGhostComponent component, ComponentRemove args)
+    {
+        TryRemoveAction(uid, component);
+    }
+
+    /// <summary>
+    /// Когда игрок переходит в призрака (смерть или /ghost).
+    /// </summary>
     private async void OnMindAdded(EntityUid uid, CanBeSponsorGhostComponent component, MindAddedMessage args)
     {
         if (!TryComp<GhostComponent>(uid, out var ghost)) // защита от дураков, которые решат выдать данный компонент другим сущностям.
@@ -65,22 +81,17 @@ public sealed class SponsorGhostSystem : EntitySystem
             return;
         }
 
-        var spriteState = component.SponsorStates.GetValueOrDefault(
-            sponsorInfo.Tier.ToLower(),
-            component.DefaultState
-        );
-
-        int indexSprite = component.SponsorsRankStates.IndexOf(spriteState);
-        if (indexSprite >= 0)
+        var spriteState = component.DefaultState;
+        if (component.SponsorStates.ContainsKey(sponsorInfo.Tier.ToLower()))
         {
-            component.CurrentIndex = indexSprite;
-            for (int i = 0; i <= indexSprite; i++)
-            {
-                component.AvailableStates.Add(component.SponsorsRankStates[i]);
-            }
+            spriteState = component.SponsorStates[sponsorInfo.Tier.ToLower()].Last();
+
+            component.PossibleSkins = component.SponsorStates[sponsorInfo.Tier.ToLower()];
+            component.CurrentIndex = component.PossibleSkins.Count - 1;
         }
 
         SetGhostSprite(uid, spriteState);
+        TrySetAction(uid, component.TryChangeGhostSkinAction, ref component.TryChangeGhostSkinActionEntity);
     }
 
     private async void OnPlayerAttached(EntityUid uid, CanBeSponsorGhostComponent component, PlayerAttachedEvent args)
@@ -118,22 +129,17 @@ public sealed class SponsorGhostSystem : EntitySystem
             return;
         }
 
-        var spriteState = component.SponsorStates.GetValueOrDefault(
-            sponsorInfo.Tier.ToLower(),
-            component.DefaultState
-        );
-
-        int indexSprite = component.SponsorsRankStates.IndexOf(spriteState);
-        if (indexSprite >= 0)
+        var spriteState = component.DefaultState;
+        if (component.SponsorStates.ContainsKey(sponsorInfo.Tier.ToLower()))
         {
-            component.CurrentIndex = indexSprite;
-            for (int i = 0; i <= indexSprite; i++)
-            {
-                component.AvailableStates.Add(component.SponsorsRankStates[i]);
-            }
+            spriteState = component.SponsorStates[sponsorInfo.Tier.ToLower()].Last();
+
+            component.PossibleSkins = component.SponsorStates[sponsorInfo.Tier.ToLower()];
+            component.CurrentIndex = component.PossibleSkins.Count - 1;
         }
 
         SetGhostSprite(uid, spriteState);
+        TrySetAction(uid, component.TryChangeGhostSkinAction, ref component.TryChangeGhostSkinActionEntity);
     }
 
     /// <summary>
@@ -150,6 +156,19 @@ public sealed class SponsorGhostSystem : EntitySystem
     }
 
     /// <summary>
+    /// Вспомогательный метод для удаления действия при снятии компонента с
+    /// сущности или в случае, если игрок за наблюдателя не является спонсором.
+    /// </summary>
+    private void TryRemoveAction(EntityUid uid, CanBeSponsorGhostComponent component)
+    {
+        if (!TryComp<ActionsComponent>(uid, out var actionsComp))
+            return;
+
+        if (component.TryChangeGhostSkinActionEntity != null)
+            _actionsSystem.RemoveAction((uid, actionsComp), component.TryChangeGhostSkinActionEntity);
+    }
+
+    /// <summary>
     /// Обработчик ивента, поднимаемого при нажатии кнопки для смены скина наблюдателя.
     /// </summary>
     /// <param name="uid"></param>
@@ -163,8 +182,11 @@ public sealed class SponsorGhostSystem : EntitySystem
         if (component.TryChangeGhostSkinActionEntity == null)
             return;
 
-        component.CurrentIndex = ChangeIndex(component.CurrentIndex, component.AvailableStates.Count);
-        var spriteState = component.SponsorsRankStates[component.CurrentIndex];
+        if (component.PossibleSkins.Count <= 0)
+            return;
+
+        component.CurrentIndex = ChangeIndex(component.CurrentIndex, component.PossibleSkins.Count);
+        var spriteState = component.PossibleSkins[component.CurrentIndex];
 
         SetGhostSprite(uid, spriteState);
 
