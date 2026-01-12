@@ -93,7 +93,7 @@
   parent: BaseStructure
   name: деревянные забитые доски 
   components:
-  - type: InteractionOutline
+  - type: Sprite
     sprite: _Metro14/Structures/woodenboards.rsi
     state: wood1
     noRot: false 
