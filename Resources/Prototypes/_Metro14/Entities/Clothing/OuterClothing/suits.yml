@@ -63,3 +63,91 @@
   - type: HideLayerClothing
     slots:
     - Tail
+
+- type: entity
+  parent: ClothingOuterBase
+  id: M14ClothingOuterSuitCult
+  name: мантия культиста
+  description: Выглядит загадачно.
+  components:
+  - type: AllowSuitStorage
+  - type: Armor
+    modifiers:
+      coefficients:
+        Blunt: 0.95
+        Slash: 0.90
+        Piercing: 0.80
+        Heat: 0.85
+  - type: Sprite
+    sprite: _Metro14/Clothing/OuterClothing/Suits/cult.rsi
+  - type: Item
+    size: Normal
+  - type: Clothing
+    sprite: _Metro14/Clothing/OuterClothing/Suits/cult.rsi
+  - type: ToggleableClothing
+    clothingPrototype: ClothingHeadHatHoodCult
+  - type: ContainerContainer
+    containers:
+      toggleable-clothing: !type:ContainerSlot {}
+  - type: HideLayerClothing
+    slots:
+    - Tail
+
+- type: entity
+  parent: ClothingHeadBase
+  id: ClothingHeadHatHoodCult
+  categories: [ HideSpawnMenu ]
+  name: капюшон культиста
+  description: Выглядит ещё загадочнее.
+  components:
+  - type: Sprite
+    sprite: _Metro14/Clothing/Head/Hoods/cult.rsi
+  - type: Clothing
+    sprite: _Metro14/Clothing/Head/Hoods/cult.rsi
+  - type: HideLayerClothing
+    slots:
+    - Hair
+
+- type: entity
+  parent: ClothingOuterBase
+  id: M14ClothingOuterSuitLeadCult
+  name: мантия лидера культиста
+  description: Выглядит невероятно загадачно.
+  components:
+  - type: AllowSuitStorage
+  - type: Armor
+    modifiers:
+      coefficients:
+        Blunt: 0.90
+        Slash: 0.90
+        Piercing: 0.85
+        Heat: 0.85
+  - type: Sprite
+    sprite: _Metro14/Clothing/OuterClothing/Suits/hcult.rsi
+  - type: Item
+    size: Normal
+  - type: Clothing
+    sprite: _Metro14/Clothing/OuterClothing/Suits/hcult.rsi
+  - type: ToggleableClothing
+    clothingPrototype: ClothingHeadHatHoodLeadCult
+  - type: ContainerContainer
+    containers:
+      toggleable-clothing: !type:ContainerSlot {}
+  - type: HideLayerClothing
+    slots:
+    - Tail
+
+- type: entity
+  parent: ClothingHeadBase
+  id: ClothingHeadHatHoodLeadCult
+  categories: [ HideSpawnMenu ]
+  name: капюшон лидера культиста
+  description: Выглядит ещё невероятно загадочнее.
+  components:
+  - type: Sprite
+    sprite: _Metro14/Clothing/Head/Hoods/hcult.rsi
+  - type: Clothing
+    sprite: _Metro14/Clothing/Head/Hoods/hcult.rsi
+  - type: HideLayerClothing
+    slots:
+    - Hair
