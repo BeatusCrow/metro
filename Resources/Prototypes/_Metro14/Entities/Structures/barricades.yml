@@ -88,15 +88,13 @@
     delay: 3
 
 - type: entity
-  id: M14BarricadeWoodboards
-  description: Почти сгнившие доски, ржавые гвозди, это вся твоя защита от жесткого мира.
+  id: M14BaseBarricadeWoodboards
+  description: A barricade made out of wood planks. It looks like it can take a few solid hits.
   parent: BaseStructure
-  name: деревянные забитые доски 
+  name: wooden barricade
+  abstract: true
   components:
-  - type: Sprite
-    sprite: _Metro14/Structures/woodenboards.rsi
-    state: wood1
-    noRot: false 
+  - type: InteractionOutline
   - type: Sprite
     sprite: _Metro14/Structures/woodenboards.rsi
     state: wood1
@@ -129,96 +127,96 @@
       behaviors:
       - !type:SpawnEntitiesBehavior
         spawn:
-          MaterialWoodPlank1:
+          M14MaterialWoodPlank:
             min: 1
-            max: 1
+            max: 3
       - !type:DoActsBehavior
         acts: [ "Destruction" ]
   - type: AtmosExposed
-   
+
 - type: entity
-  name: деревянные забитые доски 
+  name: деревянная баррикада 
   id: M14BarricadeWoodboards1
-  parent: M14BarricadeWoodboards
-  placement:
-    mode: SnapgridCenter
+  parent: M14BaseBarricadeWoodboards
   components:
   - type: Sprite
     sprite: _Metro14/Structures/woodenboards.rsi
-    state: wood2
-    noRot: false
-  - type: Icon
-    sprite: _Metro14/Structures/woodenboards.rsi
-    state: wood2
-  - type: Destructible
-    thresholds:
-    - trigger:
-        !type:DamageTrigger
-        damage: 30
-      behaviors:
-      - !type:SpawnEntitiesBehavior
-        spawn:
-          M14MaterialWoodPlank:
-            min: 1
-            max: 2
-      - !type:DoActsBehavior
-        acts: [ "Destruction" ]
+    state: wood1
+  - type: Tag
+    tags:
+    - Wooden
+  - type: Flammable
+    fireSpread: true
+    damage:
+      types:
+        Heat: 3 #per second, scales with number of fire 'stacks'
+  - type: Appearance
+  - type: FireVisuals
+    sprite: Effects/fire.rsi
+    normalState: 1
 
 - type: entity
-  name: деревянные забитые доски 
+  name: деревянная баррикада 
   id: M14BarricadeWoodboards2
-  parent: M14BarricadeWoodboards
-  placement:
-    mode: SnapgridCenter
+  parent: M14BaseBarricadeWoodboards
   components:
   - type: Sprite
     sprite: _Metro14/Structures/woodenboards.rsi
-    state: wood3
-    noRot: false
-  - type: Icon
-    sprite: _Metro14/Structures/woodenboards.rsi
-    state: wood3
-  - type: Destructible
-    thresholds:
-    - trigger:
-        !type:DamageTrigger
-        damage: 30
-      behaviors:
-      - !type:SpawnEntitiesBehavior
-        spawn:
-          M14MaterialWoodPlank:
-            min: 1
-            max: 2
-      - !type:DoActsBehavior
-        acts: [ "Destruction" ]
+    state: wood2
+  - type: Tag
+    tags:
+    - Wooden
+  - type: Flammable
+    fireSpread: true
+    damage:
+      types:
+        Heat: 3 #per second, scales with number of fire 'stacks'
+  - type: Appearance
+  - type: FireVisuals
+    sprite: Effects/fire.rsi
+    normalState: 1
 
 - type: entity
-  name: деревянные забитые доски 
+  name: деревянная баррикада 
   id: M14BarricadeWoodboards3
-  parent: M14BarricadeWoodboards
-  placement:
-    mode: SnapgridCenter
+  parent: M14BaseBarricadeWoodboards
+  components:
+  - type: Sprite
+    sprite: _Metro14/Structures/woodenboards.rsi
+    state: wood3
+  - type: Tag
+    tags:
+    - Wooden
+  - type: Flammable
+    fireSpread: true
+    damage:
+      types:
+        Heat: 3 #per second, scales with number of fire 'stacks'
+  - type: Appearance
+  - type: FireVisuals
+    sprite: Effects/fire.rsi
+    normalState: 1
+
+- type: entity
+  name: деревянная баррикада 
+  id: M14BarricadeWoodboards4
+  parent: M14BaseBarricadeWoodboards
   components:
   - type: Sprite
     sprite: _Metro14/Structures/woodenboards.rsi
     state: wood4
-    noRot: false
-  - type: Icon
-    sprite: _Metro14/Structures/woodenboards.rsi
-    state: wood4
-  - type: Destructible
-    thresholds:
-    - trigger:
-        !type:DamageTrigger
-        damage: 30
-      behaviors:
-      - !type:SpawnEntitiesBehavior
-        spawn:
-          M14MaterialWoodPlank:
-            min: 3
-            max: 5
-      - !type:DoActsBehavior
-        acts: [ "Destruction" ]
+  - type: Tag
+    tags:
+    - Wooden
+  - type: Flammable
+    fireSpread: true
+    damage:
+      types:
+        Heat: 3 #per second, scales with number of fire 'stacks'
+  - type: Appearance
+  - type: FireVisuals
+    sprite: Effects/fire.rsi
+    normalState: 1
 
 - type: entity
   id: M14BaseBarricade
