@@ -1,5 +1,6 @@
 - type: entity
-  name: Рация Спарты
+  name: Рация 
+  suffix: Спарта
   description: Смерть в нищете...
   parent: RadioHandheld
   id: M14RadioHandheldSparta
@@ -17,17 +18,18 @@
     heldPrefix: walkietalkie
 
 - type: entity
-  name: Рация Ганзы
+  name: Рация
+  suffix: Ганза
   description: Выглядит старым и потрёпанным, возможно эта рация много пережила.
   parent: RadioHandheld
-  id: M14RadioHandheldGanza
+  id: M14RadioHandheldHansa
   components:
   - type: RadioMicrophone
-    broadcastChannel: M14GanzaChannel
+    broadcastChannel: M14HansaChannel
     listenRange: 1
   - type: RadioSpeaker
     channels:
-    - M14GanzaChannel
+    - M14HansaChannel
   - type: Sprite
     sprite: Objects/Devices/securityhandy.rsi
   - type: Item
@@ -35,17 +37,18 @@
     heldPrefix: walkietalkie
 
 - type: entity
-  name: Рация Гидры
+  name: Рация
+  suffix: Гидры
   description: Выглядит старым и потрёпанным, возможно эта рация много пережила.
   parent: RadioHandheld
-  id: M14RadioHandheldGidra
+  id: M14RadioHandheldHydra
   components:
   - type: RadioMicrophone
-    broadcastChannel: M14GidraChannel
+    broadcastChannel: M14HydraChannel
     listenRange: 1
   - type: RadioSpeaker
     channels:
-    - M14GidraChannel
+    - M14HydraChannel
   - type: Sprite
     sprite: Objects/Devices/securityhandy.rsi
   - type: Item
@@ -53,7 +56,8 @@
     heldPrefix: walkietalkie
 
 - type: entity
-  name: Рация ВДНХ
+  name: Рация
+  suffix: ВДНХ
   description: Выглядит старым и потрёпанным, возможно эта рация много пережила.
   parent: RadioHandheld
   id: M14RadioHandheldVDNH
@@ -71,17 +75,18 @@
     heldPrefix: walkietalkie
 
 - type: entity
-  name: Рация Техников
+  name: Рация
+  suffix: Техник
   description: Сделано вроде из мусора, удивительно что работает.
   parent: RadioHandheld
-  id: M14RadioHandheldTehnick
+  id: M14RadioHandheldTech
   components:
   - type: RadioMicrophone
-    broadcastChannel: M14TehnickiChannel
+    broadcastChannel: M14TechChannel
     listenRange: 1
   - type: RadioSpeaker
     channels:
-    - M14TehnickiChannel
+    - M14TechChannel
   - type: Sprite
     sprite: Objects/Devices/securityhandy.rsi
   - type: Item
@@ -89,8 +94,9 @@
     heldPrefix: walkietalkie
 
 - type: entity
-  name: Рация Красной Линии
-  description: Товарщь? Слышно? Да-да, комунизм.
+  name: Рация
+  suffix: Красная Линия
+  description: Товарщь? Слышно? Да-да, коммунизм.
   parent: RadioHandheld
   id: M14RadioHandheldRedLine
   components:
