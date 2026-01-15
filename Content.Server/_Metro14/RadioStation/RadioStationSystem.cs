@@ -71,7 +71,7 @@ public sealed class RadioStationSystem : EntitySystem
     /// <summary>
     /// Локализованные названия частот для отображения в UI
     /// </summary>
-    private Dictionary<string, string> _frequenciesLocalizationMapping = new Dictionary<string, string>();
+    public static Dictionary<string, string> _frequenciesLocalizationMapping = new Dictionary<string, string>();
 
     /// <summary>
     /// Поле для отслеживания состояния раунда.
@@ -104,7 +104,6 @@ public sealed class RadioStationSystem : EntitySystem
         {
             if (_gameTiming.CurTime >= FinalTime)
             {
-                SetFinalInformation();
                 _roundEndSystem.EndRound();
             }
         }
@@ -294,45 +293,4 @@ public sealed class RadioStationSystem : EntitySystem
             }
         }
     }
-
-    /// <summary>
-    /// Вспомогательный метод, который передает нужную информацию в класс <see cref="RadioStationRuleSystem"/>,
-    /// чтобы в конце раунда была выведена информации со статистикой.
-    /// </summary>
-    public void SetFinalInformation()
-    {
-        int totalStations = 0;
-        int capturedStations = 0;
-        string? leaderFrequency = null;
-
-        var query = EntityManager.AllEntityQueryEnumerator<RadioStationComponent>();
-
-        while (query.MoveNext(out var uid, out var radioStationComponent))
-        {
-            totalStations++;
-
-            bool isNeutral = string.Compare(radioStationComponent.CurrentFrequence, "neutral_frequency") == 0;
-
-            if (!isNeutral)
-            {
-                capturedStations++;
-
-                if (radioStationComponent.FrequenciesLocalizationMapping.TryGetValue(
-                    radioStationComponent.CurrentFrequence,
-                    out var localizedFreq))
-                {
-                    leaderFrequency = localizedFreq;
-                }
-            }
-        }
-
-        RadioStationRuleSystem.RadiostationSummaryCount = totalStations;
-        RadioStationRuleSystem.RadiostationCapturedCount = capturedStations;
-
-        if (leaderFrequency != null)
-        {
-            RadioStationRuleSystem.RadiostationLeaderFrequency = Loc.GetString(leaderFrequency);
-        }
-    }
-
 }
