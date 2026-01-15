@@ -1,6 +1,9 @@
+using System.Linq;
 using Content.Server.GameTicking;
 using Content.Server.GameTicking.Rules;
 using Content.Server._Metro14.GameRules.Components;
+using Content.Server._Metro14.RadioStation;
+using Content.Shared._Metro14.RadioStation;
 using Content.Shared.GameTicking.Components;
 
 namespace Content.Server._Metro14.GameRules;
@@ -21,22 +24,22 @@ public sealed class RadioStationRuleSystem : GameRuleSystem<RadioStationRuleComp
     /// Поле отражающее, выбран ли в данный момент режим захвата радиостанций.
     /// Необходимо, чтобы при захвате последней радиостанции раунд закончился.
     /// </summary>
-    static public bool IsEnabledRule = false;
+    public static bool IsEnabledRule = false;
 
     /// <summary>
     /// Информация о суммарном количестве точек на карте.
     /// </summary>
-    static public int RadiostationSummaryCount = 0;
+    private int _radiostationSummaryCount = 0;
 
     /// <summary>
     /// Информация о количестве захваченных точек.
     /// </summary>
-    static public int RadiostationCapturedCount = 0;
+    private int _radiostationCapturedCount = 0;
 
     /// <summary>
     /// Частота фракции-лидера.
     /// </summary>
-    static public string RadiostationLeaderFrequency = "";
+    private string _radiostationLeaderFrequency = "";
 
     /// <summary>
     /// Базовый метод инициализации правила в игре.
@@ -55,8 +58,60 @@ public sealed class RadioStationRuleSystem : GameRuleSystem<RadioStationRuleComp
     {
         base.AppendRoundEndText(uid, component, gameRule, ref args);
 
-        args.AddLine(Loc.GetString("radiostation-summary-count", ("count", RadiostationSummaryCount)));
-        args.AddLine(Loc.GetString("radiostation-captured-count", ("count", RadiostationCapturedCount)));
-        args.AddLine(Loc.GetString("radiostation-leader-frequency", ("frequency", RadiostationLeaderFrequency)));
+        SetFinalInformation();
+        args.AddLine(Loc.GetString("radiostation-summary-count", ("count", _radiostationSummaryCount)));
+        args.AddLine(Loc.GetString("radiostation-captured-count", ("count", _radiostationCapturedCount)));
+        args.AddLine(Loc.GetString("radiostation-leader-frequency", ("frequency", _radiostationLeaderFrequency)));
+    }
+
+    /// <summary>
+    /// Вспомогательный метод, который устанавливает нужную информацию,
+    /// чтобы в конце раунда была выведена информации со статистикой.
+    /// </summary>
+    private void SetFinalInformation()
+    {
+        int totalStations = 0;
+        int capturedStations = 0;
+        string? leaderFrequency = null;
+
+        var query = EntityManager.AllEntityQueryEnumerator<RadioStationComponent>();
+
+        Dictionary<string, int> fractionsCount = new Dictionary<string, int>();
+        while (query.MoveNext(out var uid, out var radioStationComponent))
+        {
+            totalStations++;
+
+            bool isNeutral = string.Compare(radioStationComponent.CurrentFrequence, "neutral_frequency") == 0;
+
+            if (!isNeutral)
+            {
+                capturedStations++;
+
+                if (fractionsCount.ContainsKey(radioStationComponent.CurrentFrequence))
+                {
+                    fractionsCount[radioStationComponent.CurrentFrequence]++;
+                }
+                else
+                {
+                    fractionsCount.Add(radioStationComponent.CurrentFrequence, 1);
+                }
+            }
+        }
+
+        var fractionWinner = fractionsCount.OrderByDescending(kvp => kvp.Value).First();
+        if (Content.Server._Metro14.RadioStation.RadioStationSystem._frequenciesLocalizationMapping.TryGetValue(
+            fractionWinner.Key,
+            out var localizedFreq))
+        {
+            leaderFrequency = localizedFreq;
+        }
+
+        _radiostationSummaryCount = totalStations;
+        _radiostationCapturedCount = capturedStations;
+
+        if (leaderFrequency != null)
+        {
+            _radiostationLeaderFrequency = Loc.GetString(leaderFrequency);
+        }
     }
 }
