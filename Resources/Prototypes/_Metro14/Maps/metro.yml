@@ -1,7 +1,7 @@
 - type: gameMap
   id: Metro14
   mapName: 'Metro'
-  mapPath: /Maps/_Metro14/Metro/MetroV52.yml
+  mapPath: /Maps/_Metro14/Metro/MetroV97.yml
   minPlayers: 0
   maxPlayers: 200
   stations:
@@ -32,7 +32,7 @@
           M14SoldierSparta: [ 4, 4 ]
           # Tehniki
           M14HeadOfTech: [ 1, 1 ]
-          M14SecurityTech: [ 3, 3]
+          M14SecurityTech: [ 2, 2]
           M14TechnicTech: [ 3, 3 ]
           # VDNH
           M14HeadOfVDNH: [ 1, 1 ]
