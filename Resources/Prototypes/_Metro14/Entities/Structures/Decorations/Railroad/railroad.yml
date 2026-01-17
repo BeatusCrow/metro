@@ -19,6 +19,7 @@
   - type: Sprite
     sprite: _Metro14/Structures/Railroad/rails.rsi
     state: rail
+    drawdepth: -3
   - type: Icon
     sprite: _Metro14/Structures/Railroad/rails.rsi
     state: icon
@@ -52,6 +53,7 @@
   - type: Sprite
     sprite: _Metro14/Structures/Railroad/railroad_metro.rsi
     state: railroadStraight
+    drawdepth: -3
   - type: Tag
     tags:
       - Structure
@@ -70,7 +72,8 @@
   components:
   - type: Sprite
     sprite: _Metro14/Structures/Railroad/railroad_metro.rsi
-    state: railroadStraightStation
+    state: 
+    drawdepth: -3
 
 - type: entity
   id: M14RailRoadMetroBumper
@@ -82,3 +85,4 @@
   - type: Sprite
     sprite: _Metro14/Structures/Railroad/railroad_metro.rsi
     state: railroadBumper
+    drawdepth: -3
