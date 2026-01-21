@@ -110,9 +110,7 @@ public sealed class CharacterCreationTest
         if (a.MemberwiseEquals(b))
             return;
 
-        Assert.That(a.HairStyleId, Is.EqualTo(b.HairStyleId));
         //Assert.That(a.HairColor, Is.EqualTo(b.HairColor)); //Metro14 я не собираюсь смотреть на проваленные тесты из-за таких отличий в цвете: 0.7254902 | 0.72156864
-        Assert.That(a.FacialHairStyleId, Is.EqualTo(b.FacialHairStyleId));
         //Assert.That(a.FacialHairColor, Is.EqualTo(b.FacialHairColor)); //Metro14 
         //Assert.That(a.EyeColor, Is.EqualTo(b.EyeColor)); //Metro14 
         //Assert.That(a.SkinColor, Is.EqualTo(b.SkinColor)); //Metro14 

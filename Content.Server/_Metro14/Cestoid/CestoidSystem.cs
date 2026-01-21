@@ -48,7 +48,7 @@ public sealed class CestoidSystem : EntitySystem
         SubscribeLocalEvent<CestoidComponent, ComponentRemove>(OnComponentRemove);
         SubscribeLocalEvent<CestoidComponent, WieldAttemptEvent>(OnWieldAttempt);
         SubscribeLocalEvent<CestoidComponent, CestoidInfectionActionEvent>(OnCestoidInfectionActionPressed);
-        SubscribeLocalEvent<HumanoidAppearanceComponent, CestoidInfectionDoAfterEvent>(OnCestoidInfectionDoAfter);
+        SubscribeLocalEvent<HumanoidProfileComponent, CestoidInfectionDoAfterEvent>(OnCestoidInfectionDoAfter);
         SubscribeLocalEvent<CestoidComponent, CestoidShootingDownActionEvent>(OnCestoidShootingDownActionPressed);
     }
 
@@ -169,7 +169,7 @@ public sealed class CestoidSystem : EntitySystem
     /// <param name="args"> Аргументы таргетного действия заражения </param>
     private void OnCestoidInfectionActionPressed(EntityUid uid, CestoidComponent component, CestoidInfectionActionEvent args)
     {
-        if (!TryComp<HumanoidAppearanceComponent>(args.Target, out var _compHuman))
+        if (!TryComp<HumanoidProfileComponent>(args.Target, out var _compHuman))
             return;
 
         if (TryComp<CestoidComponent>(args.Target, out var _comp))
@@ -198,7 +198,7 @@ public sealed class CestoidSystem : EntitySystem
     /// <param name="uid"> Ленточник </param>
     /// <param name="component"> Компонент гуманоида </param>
     /// <param name="args"> Аргументы таргетного действия заражения </param>
-    private void OnCestoidInfectionDoAfter(EntityUid uid, HumanoidAppearanceComponent component, CestoidInfectionDoAfterEvent args)
+    private void OnCestoidInfectionDoAfter(EntityUid uid, HumanoidProfileComponent component, CestoidInfectionDoAfterEvent args)
     {
         if (args.Cancelled || args.Handled)
             return;
