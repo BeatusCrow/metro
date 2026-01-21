@@ -7,8 +7,8 @@
   components:
   - type: RadioStation
     currentFrequence: neutral_frequency
-    doAfterActionTime: 20
-    timeToRecaptureStation: 900
+    doAfterActionTime: 5
+    timeToRecaptureStation: 20
     rolesFrequenciesMapping:
       hydra_frequency:
       - M14HeadOfHydra
