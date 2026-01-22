@@ -5,3 +5,9 @@
 [submodule "Resources/Prototypes/_Metro14"]
 	path = Resources/Prototypes/_Metro14
 	url = https://github.com/Metro-Observers/_Metro14_Prototype.git
+[submodule "Content.Client/_Metro14"]
+	path = Content.Client/_Metro14
+	url = https://github.com/Metro-Observers/_Metro14_Client.git
+[submodule "Content.Server/_Metro14"]
+	path = Content.Server/_Metro14
+	url = https://github.com/Metro-Observers/_Metro14_Server.git
