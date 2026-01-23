@@ -1,0 +1,44 @@
+- type: reagent
+  id: M14voenstim
+  group: Narcotics
+  name: reagent-name-voenstim
+  desc: reagent-desc-voenstim
+  physicalDesc: reagent-physical-desc-translucent
+  flavor: bitter
+  color: "#FAFAFA"
+  boilingPoint: 212.0  # Dexosyephedrine vape when?
+  meltingPoint: 170.0
+  metabolisms:
+    Medicine:
+      effects:
+      - !type:HealthChange
+        damage:
+          groups:
+            Burn: -5
+            Brute: -5
+            Toxin: -2
+            Airloss: -3
+    Narcotic:
+      effects:
+      - !type:MovementSpeedModifier
+        walkSpeedModifier: 1.5
+        sprintSpeedModifier: 1.5
+      - !type:GenericStatusEffect
+        key: Stutter
+        component: StutteringAccent
+      - !type:Jitter
+      - !type:ModifyStatusEffect
+        effectProto: StatusEffectStunned
+        time: 3
+        type: Remove
+      - !type:ModifyKnockdown
+        time: 3
+        type: Remove
+      - !type:ModifyStatusEffect
+        conditions:
+        - !type:ReagentCondition
+          reagent: Haloperidol
+          max: 0.01
+        effectProto: StatusEffectDrowsiness
+        time: 90
+        type: Remove
