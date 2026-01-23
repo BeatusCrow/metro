@@ -43,10 +43,10 @@ jobs:
           echo "Длина токена: ${#PAT} символов"
     
           #Вариант 1: Замена всех GitHub URL (проще, но менее безопасно)
-          #git config --global url."https://x-access-token:$PAT@github.com".insteadOf "https://github.com"
+          git config --global url."https://x-access-token:$PAT@github.com".insteadOf "https://github.com"
     
           # Вариант 2: Только для вашей организации (более безопасно)
-          git config --global url."https://x-access-token:$PAT@github.com/Metro-Observers/".insteadOf "https://github.com/Metro-Observers/"
+          #git config --global url."https://x-access-token:$PAT@github.com/Metro-Observers/".insteadOf "https://github.com/Metro-Observers/"
     
           # Для git:// протокола
           git config --global url."https://github.com".insteadOf "git://github.com"
