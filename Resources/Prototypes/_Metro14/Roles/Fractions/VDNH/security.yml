@@ -1,0 +1,24 @@
+- type: job
+  id: M14SecurityVDNH
+  name: Охранник ВДНХ
+  description: Вы обладаете всей полнотой власти на этой станции.
+  playTimeTracker: M14SecurityVDNH
+  startingGear: M14SecurityVDNHGear
+  icon: "JobIconVDNH"
+  canBeAntag: true
+
+- type: startingGear
+  id: M14SecurityVDNHGear
+  equipment:
+    head: ClothingHeadHelmetScrap
+    jumpsuit: M14ClothingUniformTelogreykaBlack
+    id: M14Tablet
+    gloves: ClothingHandsGlovesFingerless
+    shoes: ClothingShoesBootsWork
+    back: ClothingBackpack
+    pocket1: SurvivalKnife
+    pocket2: M14WeaponShotgunAshot
+  storage:
+    back:
+    - M14RadioHandheldVDNH
+    - M14VDNKHKey

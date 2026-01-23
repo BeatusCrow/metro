@@ -1,0 +1,18 @@
+- type: job
+  id: M14CivilianHansa
+  name: Гражданин ганзы
+  description: Следите за баром,проводите сталкеров,смотрите за грядками
+  playTimeTracker: M14CivilianHansa
+  startingGear: M14CivilianHansaGear
+  supervisors: job-supervisors-ganza
+  icon: "JobIconHansa"
+  canBeAntag: true
+
+- type: startingGear
+  id: M14CivilianHansaGear
+  equipment:
+    jumpsuit: M14ClothingUniformJumpsuitcivilian
+    id: M14Tablet
+    shoes: ClothingShoesLeather
+    back: ClothingBackpack
+    pocket1: M14HansaPassport

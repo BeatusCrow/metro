@@ -1,0 +1,10 @@
+- type: latheRecipePack
+  id: M14Ammunitions
+  recipes:
+  - M14MagazineBoxLightRifle
+  - M14ShellShotgun
+  - M14CartridgeLightRifle
+  - M14BoxLethalshot
+  - M14BoxShotgunSlug
+  - M14ShellShotgunSlug
+  - M14devicesDNVlethe

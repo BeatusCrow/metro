@@ -1,0 +1,25 @@
+- type: job
+  id: M14HeadOfVDNH
+  name: Начальник ВДНХ
+  description: Вы обладаете всей полнотой власти на этой станции.
+  playTimeTracker: M14HeadOfVDNH
+  startingGear: M14HeadOfVDNHGear
+  icon: "JobIconVDNH"
+  canBeAntag: true
+
+- type: startingGear
+  id: M14HeadOfVDNHGear
+  equipment:
+    head: M14ClothingHeadHatUshankaBlack
+    neck: M14ClothingNeckMantleVDNH
+    jumpsuit: M14ClothingUniformTelogreykaBlack
+    id: M14Tablet
+    shoes: M14ClothingShoesValenki
+    gloves: ClothingHandsGlovesHop
+    back: ClothingBackpackMerc
+    pocket1: SurvivalKnife
+    pocket2: M14HeadOfVDNKHKey
+  storage:
+    back:
+    - M14RadioHandheldVDNH
+    - M14WeaponShotgunAshot

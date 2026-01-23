@@ -1,0 +1,24 @@
+- type: job
+  id: M14HeadOfRedLine
+  name: Генсек
+  description: Вы великий вождь вашей станции,людей ну и носитель коммунистической революции во всем метро.
+  playTimeTracker: M14HeadOfRedLine
+  startingGear: M14HeadOfRedLineGear
+  icon: "JobIconRedline"
+  canBeAntag: false
+
+- type: startingGear
+  id: M14HeadOfRedLineGear
+  equipment:
+    neck: M14ClothingNeckMantleRedLine
+    mask: ClothingMaskNeckGaiterRed
+    jumpsuit: M14ClothingUniformJumpsuitRedLine
+    id: M14Tablet
+    shoes: ClothingShoesBootsCombatFilled
+    gloves: ClothingHandsGlovesCombat
+    back: ClothingMilitaryBackpack
+    pocket1: M14HeadOfRedLineKey
+  storage:
+    back:
+    - M14RadioHandheldRedLine
+

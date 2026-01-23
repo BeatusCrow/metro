@@ -1,0 +1,25 @@
+- type: job
+  id: M14HeadOfHydra
+  name: Фюрер
+  description: Вы великий вождь.
+  playTimeTracker: M14HeadOfHydra
+  startingGear: M14HeadOfHydraGear
+  icon: "JobIconHydra"
+  canBeAntag: false
+  whitelisted: true
+
+- type: startingGear
+  id: M14HeadOfHydraGear
+  equipment:
+    head: M14ClothingHeadHatBeaverHat
+    neck: M14ClothingNeckCloakHydra
+    mask: ClothingMaskNeckGaiter
+    jumpsuit: M14ClothingUniformJumpsuitHydra
+    id: M14Tablet
+    shoes: ClothingShoesBootsCombatFilled
+    gloves: ClothingHandsGlovesCombat
+    back: ClothingMilitaryBackpack
+    pocket1: M14HeadOfHydraKey
+  storage:
+    back:
+    - M14RadioHandheldHydra

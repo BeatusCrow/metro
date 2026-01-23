@@ -1,0 +1,5 @@
+- type: latheRecipePack
+  id: M14Magazines
+  recipes:
+  - M14MagazineLightRifle
+  - M14MagazineLightRifleExtended
