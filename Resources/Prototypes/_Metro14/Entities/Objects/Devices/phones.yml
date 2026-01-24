@@ -15,7 +15,9 @@
   - type: Item
     size: Small
     storedRotation: -90
-  - type: Prayable
+  - type: Speech
+  - type: CommandPhones
+    frequence: hansa_frequency
     sentMessage: m14-hansa-text
     notificationPrefix: m14-hansa-text
     verb: prayer-verbs-call
@@ -39,7 +41,9 @@
   - type: Item
     size: Small
     storedRotation: -90
-  - type: Prayable
+  - type: Speech
+  - type: CommandPhones
+    frequence: vdnh_frequency
     sentMessage: m14-vdnh-text
     notificationPrefix: m14-vdnh-text
     verb: prayer-verbs-call
@@ -62,7 +66,9 @@
   - type: Item
     size: Small
     storedRotation: -90
-  - type: Prayable
+  - type: Speech
+  - type: CommandPhones
+    frequence: sparta_frequency
     sentMessage: m14-sparta-text
     notificationPrefix: m14-sparta-text
     verb: prayer-verbs-call
@@ -85,7 +91,9 @@
   - type: Item
     size: Small
     storedRotation: -90
-  - type: Prayable
+  - type: Speech
+  - type: CommandPhones
+    frequence: hydra_frequency
     sentMessage: m14-hydra-text
     notificationPrefix: m14-hydra-text
     verb: prayer-verbs-call
@@ -108,7 +116,9 @@
   - type: Item
     size: Small
     storedRotation: -90
-  - type: Prayable
+  - type: Speech
+  - type: CommandPhones
+    frequence: tech_frequency
     sentMessage: m14-tech-text
     notificationPrefix: m14-tech-text
     verb: prayer-verbs-call
@@ -131,7 +141,9 @@
   - type: Item
     size: Small
     storedRotation: -90
-  - type: Prayable
+  - type: Speech
+  - type: CommandPhones
+    frequence: redline_frequency
     sentMessage: m14-redline-text
     notificationPrefix: m14-redline-text
     verb: prayer-verbs-call
