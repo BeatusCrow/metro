@@ -38,8 +38,9 @@
           reagent: Aquatoxin
           min: 2
         damage:
-          Toxin: 0.5
-          Brute: 1
+          groups:
+            Toxin: 0.5
+            Brute: 1
 
 # Реагент, который снимает болезнь, если она еще находится на первом этапе.
 - type: reagent
@@ -84,7 +85,8 @@
           reagent: Xylophag
           min: 2
         damage:
-          Toxin: 0.5
+          types:
+            Poison: 0.5
 
 # Реагент, который блокирует болезнь на текущем этапе.
 - type: reagent
@@ -110,7 +112,8 @@
           reagent: Aquastasiton
           min: 0.5
         damage:
-          Toxin: 0.15
+          types:
+            Poison: 0.15
 
 # Реагент, который снимает один этап болезни, даже если она находится на третьем этапе.
 - type: reagent
@@ -136,8 +139,9 @@
           reagent: Pyrocatalysin
           min: 1
         damage:
-          Cold: 1
-          Asphyxiation: 0.25
+          types:
+            Cold: 1
+            Asphyxiation: 0.25
 
 # Растения:
 # Фунгоидея люминесценс (Fungoidea luminescens) — «светящийся грибообразный». |###| Фотоцитозин - Photocytosine
