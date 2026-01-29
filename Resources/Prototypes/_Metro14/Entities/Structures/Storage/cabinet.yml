@@ -25,7 +25,7 @@
       behaviors:
       - !type:SpawnEntitiesBehavior
         spawn:
-          M14MaterialWoodPlank:
+          MaterialWoodPlank:
             min: 3
             max: 15
       - !type:DoActsBehavior
