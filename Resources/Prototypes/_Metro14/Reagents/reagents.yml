@@ -23,7 +23,7 @@
   flavor: medicine
   color: "#7FFF00"
   metabolisms:
-    Poisin:
+    Poison:
       metabolismRate: 0.5
       effects:
       - !type:HealthChange
